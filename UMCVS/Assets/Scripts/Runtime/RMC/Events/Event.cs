@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events
+namespace RMC.Events
 {
 	/// <summary>
 	/// Base Event

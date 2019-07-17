@@ -1,10 +1,10 @@
 ﻿
-namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Notifications
+namespace RMC.Commands
 {
 	/// <summary>
 	/// Holds the before and after value during a property chagnge
 	/// </summary>
-	public abstract class PropertyChangedNotification<T> : RMC.Notifications.Notification
+	public abstract class PropertyChangedCommand<T> : RMC.Commands.Command
 	{
 		public T PreviousValue { get { return _previousValue; } }
 		public T CurrentValue { get { return _currentValue; } }
@@ -12,7 +12,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Notifications
 		private T _previousValue;
 		private T _currentValue;
 
-		public PropertyChangedNotification(T previousValue, T currentValue)
+		public PropertyChangedCommand(T previousValue, T currentValue)
 		{
 			_previousValue = previousValue;
 			_currentValue = currentValue;

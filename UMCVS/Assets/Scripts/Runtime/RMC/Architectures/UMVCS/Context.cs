@@ -8,15 +8,15 @@ namespace RMC.Architectures.UMVCS
 	public class Context  
 	{
 		public ModelLocator ModelLocator { get { return _modelLocator; } }
-		public NotificationManager NotificationManager { get { return _notificationManager; } }
+		public CommandManager CommandManager { get { return _commandManager; } }
 
 		private ModelLocator _modelLocator = null;
-		private NotificationManager _notificationManager = null;
+		private CommandManager _commandManager = null;
 
 		public Context()
 		{
 			_modelLocator = new ModelLocator();
-			_notificationManager = new NotificationManager();
+			_commandManager = new CommandManager();
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using RMC.Architectures.UMVCS.View;
-using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events;
 using UnityEngine;
 using UnityEngine.UI;
 

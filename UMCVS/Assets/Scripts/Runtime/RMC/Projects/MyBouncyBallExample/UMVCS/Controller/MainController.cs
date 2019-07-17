@@ -1,5 +1,5 @@
 ﻿using RMC.Architectures.UMVCS.Controller;
-using RMC.Managers;
+using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
 
@@ -31,13 +31,13 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 				return;
 			}
 
-			Context.NotificationManager.InvokeNotification(
-				new BounceCountChangedNotification(previousValue, currentValue));
+			Context.CommandManager.InvokeCommand(
+				new BounceCountChangedCommand(previousValue, currentValue));
 		}
 
 		//TODO: Move this per the comment?
 		// As the project scales up the "BouncyBall" Concept would likely 
-		// have its own Controller to handle this and would use a notification
+		// have its own Controller to handle this and would use a command
 		private void BouncyBallView_OnBounce()
 		{
 			_mainModel.BounceCount++;

@@ -1,6 +1,6 @@
 ﻿using RMC.Architectures.UMVCS.Model;
 using RMC.Attributes;
-using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events;
+using RMC.Events;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
 using UnityEngine;
 

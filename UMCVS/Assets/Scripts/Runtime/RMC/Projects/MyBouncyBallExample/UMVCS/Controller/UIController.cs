@@ -2,6 +2,7 @@
 using RMC.Architectures.UMVCS.Model;
 using RMC.Architectures.UMVCS.Controller;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
+using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 {
@@ -14,7 +15,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		protected void Start()
 		{
-			Context.NotificationManager.AddNotificationListener<BounceCountChangedNotification>(
+			Context.CommandManager.AddCommandListener<BounceCountChangedCommand>(
 				EventManager_OnBounceCountChanged);
 
 			SetBounceCountText(0);	
@@ -28,7 +29,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			_uiView.BounceCountText.text = string.Format("BounceCount: {0:00}/{1:00}", count, bounceCountMax);
 		}
 
-		private void EventManager_OnBounceCountChanged(BounceCountChangedNotification e)
+		private void EventManager_OnBounceCountChanged(BounceCountChangedCommand e)
 		{
 			SetBounceCountText(e.CurrentValue);
 		}

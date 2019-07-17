@@ -1,11 +1,9 @@
 ﻿using RMC.Architectures.UMVCS.View;
+using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
-{
-	public class BounceEvent : UnityEvent { }
-
+{ 
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>

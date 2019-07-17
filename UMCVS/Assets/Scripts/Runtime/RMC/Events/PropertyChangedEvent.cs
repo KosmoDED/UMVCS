@@ -1,7 +1,6 @@
-﻿
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
-namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events
+namespace RMC.Events
 {
 	/// <summary>
 	/// Holds the before and after value during a property chagnge
