@@ -24,6 +24,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 			_mainModel.BouncyBallView.OnBounce.AddListener(BouncyBallView_OnBounce);
 			_mainModel.OnBounceCountChanged.AddListener(MainModel_OnBounceCountChanged);
+			_mainModel.OnCaptionTextChanged.AddListener(MainModel_OnCaptionTextChanged);
 
 			_mainModel.BounceCount = 0;
 
@@ -33,7 +34,13 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		private void MainService_OnLoadCompleted(string text)
 		{
-			Debug.Log("MainService_OnLoadCompleted: " + text);
+			_mainModel.CaptionText = text;
+		}
+
+		private void MainModel_OnCaptionTextChanged(string previousValue, string currentValue)
+		{
+			Context.CommandManager.InvokeCommand(
+				new CaptionTextChangedCommand(previousValue, currentValue));
 		}
 
 		private void MainModel_OnBounceCountChanged(int previousValue, int currentValue)

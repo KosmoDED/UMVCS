@@ -13,8 +13,8 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 	public class MainModel : BaseModel
 	{
 		public MainConfigData MainConfigData { get { return ConfigData as MainConfigData; } }
-
 		public BounceCountChangedEvent OnBounceCountChanged = new BounceCountChangedEvent();
+		public CaptionTextChangedEvent OnCaptionTextChanged = new CaptionTextChangedEvent();
 
 		public int BounceCount
 		{
@@ -26,14 +26,34 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 			{
 				if (_bounceCount != value)
 				{
-					int oldBounceCount = _bounceCount;
+					int previousValue = _bounceCount;
 					_bounceCount = value;
-					OnBounceCountChanged.Invoke(oldBounceCount, _bounceCount);
+					OnBounceCountChanged.Invoke(previousValue, _bounceCount);
+				}
+			}
+		}
+		public string CaptionText
+		{
+			get
+			{
+				return _captionText;
+			}
+			set
+			{
+				if (_captionText != value)
+				{
+					string previousValue = _captionText;
+					_captionText = value;
+					OnCaptionTextChanged.Invoke(previousValue, _captionText);
 				}
 			}
 		}
 
 		public BouncyBallView BouncyBallView { get { return _bouncyBallView; } set { _bouncyBallView = value; } }
+
+		[ReadOnly]
+		[SerializeField]
+		private string _captionText = "";
 
 		[ReadOnly]
 		[SerializeField]

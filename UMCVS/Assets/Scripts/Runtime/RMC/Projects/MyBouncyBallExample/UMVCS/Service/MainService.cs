@@ -32,7 +32,6 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Service
 			}
 			else
 			{
-				Debug.Log("Received: " + unityWebRequest.downloadHandler.text);
 				OnLoadCompleted.Invoke(unityWebRequest.downloadHandler.text);
 			}
 		}

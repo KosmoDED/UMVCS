@@ -10,8 +10,12 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
 	public class UIView : BaseView
 	{
 		public Text BounceCountText { get { return _bounceCountText; } }
+		public Text CaptionText { get { return _captionText; } }
 
 		[SerializeField]
 		private Text _bounceCountText = null;
+
+		[SerializeField]
+		private Text _captionText = null;
 	}
 }
