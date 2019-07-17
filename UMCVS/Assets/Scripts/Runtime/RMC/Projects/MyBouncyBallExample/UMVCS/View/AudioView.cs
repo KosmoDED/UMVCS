@@ -9,10 +9,10 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
 	public class AudioView : BaseView
 	{
 		[SerializeField]
-		private AudioSource _audioSource;
+		private AudioSource _audioSource = null;
 
 		[SerializeField]
-		private AudioClip _audioClip;
+		private AudioClip _audioClip = null;
 
 		public void PlayAudioClip ()
 		{

@@ -1,5 +1,6 @@
 ﻿using System;
 using RMC.Architectures.UMVCS.Controller;
+using RMC.Data.Types;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Service;
@@ -24,12 +25,14 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			Context.CommandManager.AddCommandListener<RestartApplicationCommand>(
 				CommandManager_OnRestartApplication);
 
-			_mainModel.OnBounceCountChanged.AddListener(MainModel_OnBounceCountChanged);
-			_mainModel.OnCaptionTextChanged.AddListener(MainModel_OnCaptionTextChanged);
+			_mainModel.BounceCount.OnChanged.AddListener(MainModel_OnBounceCountChanged);
+			_mainModel.CaptionText.OnChanged.AddListener(MainModel_OnCaptionTextChanged);
 			_mainService.OnLoadCompleted.AddListener(MainService_OnLoadCompleted);
 
 			RestartApplication();
 		}
+
+
 
 		private void RestartApplication()
 		{
@@ -43,7 +46,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			_mainModel.BouncyBallView.transform.position =
 				_mainModel.MainConfigData.InitialBouncyBallPosition;
 
-			_mainModel.BounceCount = 0;
+			_mainModel.BounceCount.Value = 0;
 
 			_mainService.OnLoadCompleted.AddListener(MainService_OnLoadCompleted);
 			_mainService.Load();
@@ -56,32 +59,36 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		private void MainService_OnLoadCompleted(string text)
 		{
-			_mainModel.CaptionText = text;
+			_mainModel.CaptionText.Value = text;
 		}
 
-		private void MainModel_OnCaptionTextChanged(string previousValue, string currentValue)
+		private void MainModel_OnCaptionTextChanged(Observable obs)
 		{
+			ObservableString observable = obs as ObservableString;
+
 			Context.CommandManager.InvokeCommand(
-				new CaptionTextChangedCommand(previousValue, currentValue));
+				new CaptionTextChangedCommand(observable.PreviousValue, observable.Value));
 		}
 
-		private void MainModel_OnBounceCountChanged(int previousValue, int currentValue)
+		private void MainModel_OnBounceCountChanged(Observable obs)
 		{
+			ObservableInt observable = obs as ObservableInt;
+
 			// Reset the count here, this is a contrived example
 			// of a Controller mitigating changes to a Model
-			if (currentValue > _mainModel.MainConfigData.BounceCountMax)
+			if (observable.Value > _mainModel.MainConfigData.BounceCountMax)
 			{
-				_mainModel.BounceCount = 0;
+				_mainModel.BounceCount.Value = 0;
 				return;
 			}
 
 			Context.CommandManager.InvokeCommand(
-				new BounceCountChangedCommand(previousValue, currentValue));
+				new BounceCountChangedCommand(-1, observable.Value));
 		}
 
 		private void CommandManager_OnBounced(BouncedCommand e)
 		{
-			_mainModel.BounceCount++;
+			_mainModel.BounceCount.Value = _mainModel.BounceCount.Value + 1;
 		}
 	}
 }
