@@ -18,10 +18,10 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 		protected void Start()
 		{
 			Context.CommandManager.AddCommandListener<BounceCountChangedCommand>(
-				EventManager_OnBounceCountChanged);
+				CommandManager_OnBounceCountChanged);
 
 			Context.CommandManager.AddCommandListener<CaptionTextChangedCommand>(
-				EventManager_OnCaptionTextChangedCommand);
+				CommandManager_OnCaptionTextChanged);
 
 			SetBounceCountText(0);
 			SetCaptionText("");
@@ -40,12 +40,12 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			_uiView.CaptionText.text = text;
 		}
 
-		private void EventManager_OnBounceCountChanged(BounceCountChangedCommand e)
+		private void CommandManager_OnBounceCountChanged(BounceCountChangedCommand e)
 		{
 			SetBounceCountText(e.CurrentValue);
 		}
 
-		private void EventManager_OnCaptionTextChangedCommand(CaptionTextChangedCommand e)
+		private void CommandManager_OnCaptionTextChanged(CaptionTextChangedCommand e)
 		{
 			SetCaptionText(e.CurrentValue);
 		}

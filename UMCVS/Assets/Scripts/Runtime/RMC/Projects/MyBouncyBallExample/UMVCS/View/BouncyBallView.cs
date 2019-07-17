@@ -9,7 +9,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
 	/// </summary>
 	public class BouncyBallView : BaseView
 	{
-		public BounceEvent OnBounce = new BounceEvent();
+		public BouncedEvent OnBounce = new BouncedEvent();
 
 		protected void OnCollisionEnter (Collision collision)
 		{

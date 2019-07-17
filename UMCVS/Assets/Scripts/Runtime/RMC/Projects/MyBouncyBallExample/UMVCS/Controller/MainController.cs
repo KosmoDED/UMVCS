@@ -19,17 +19,39 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		protected void Start()
 		{
-			_mainModel.BouncyBallView = Instantiate(_mainView.BouncyBallViewPrefab) as BouncyBallView;
-			_mainModel.BouncyBallView.transform.SetParent(_mainView.BouncyBallParent);
+			Context.CommandManager.AddCommandListener<BouncedCommand>(
+				CommandManager_OnBounced);
+			Context.CommandManager.AddCommandListener<RestartApplicationCommand>(
+				CommandManager_OnRestartApplication);
 
-			_mainModel.BouncyBallView.OnBounce.AddListener(BouncyBallView_OnBounce);
 			_mainModel.OnBounceCountChanged.AddListener(MainModel_OnBounceCountChanged);
 			_mainModel.OnCaptionTextChanged.AddListener(MainModel_OnCaptionTextChanged);
+			_mainService.OnLoadCompleted.AddListener(MainService_OnLoadCompleted);
+
+			RestartApplication();
+		}
+
+		private void RestartApplication()
+		{
+			if (_mainModel.BouncyBallView != null)
+			{
+				Destroy(_mainModel.BouncyBallView.gameObject);
+			}
+
+			_mainModel.BouncyBallView = Instantiate(_mainView.BouncyBallViewPrefab) as BouncyBallView;
+			_mainModel.BouncyBallView.transform.SetParent(_mainView.BouncyBallParent);
+			_mainModel.BouncyBallView.transform.position =
+				_mainModel.MainConfigData.InitialBouncyBallPosition;
 
 			_mainModel.BounceCount = 0;
 
 			_mainService.OnLoadCompleted.AddListener(MainService_OnLoadCompleted);
 			_mainService.Load();
+		}
+
+		private void CommandManager_OnRestartApplication(RestartApplicationCommand e)
+		{
+			RestartApplication();
 		}
 
 		private void MainService_OnLoadCompleted(string text)
@@ -45,19 +67,18 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		private void MainModel_OnBounceCountChanged(int previousValue, int currentValue)
 		{
+			// Reset the count here, this is a contrived example
+			// of a Controller mitigating changes to a Model
 			if (currentValue > _mainModel.MainConfigData.BounceCountMax)
 			{
-				return;
+				currentValue = 0;
 			}
 
 			Context.CommandManager.InvokeCommand(
 				new BounceCountChangedCommand(previousValue, currentValue));
 		}
 
-		//TODO: Move this per the comment?
-		// As the project scales up the "BouncyBall" Concept would likely 
-		// have its own Controller to handle this and would use a command
-		private void BouncyBallView_OnBounce()
+		private void CommandManager_OnBounced(BouncedCommand e)
 		{
 			_mainModel.BounceCount++;
 		}

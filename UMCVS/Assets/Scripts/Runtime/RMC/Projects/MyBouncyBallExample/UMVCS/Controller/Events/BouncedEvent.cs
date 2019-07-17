@@ -3,6 +3,6 @@
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class BounceEvent : RMC.Events.Event { }
+	public class BouncedEvent : RMC.Events.Event { }
 }
 

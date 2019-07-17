@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MainConfigData
   m_EditorClassIdentifier: 
   _bounceCountMax: 3
+  _initialBouncyBallPosition: {x: 0, y: 3, z: 0}

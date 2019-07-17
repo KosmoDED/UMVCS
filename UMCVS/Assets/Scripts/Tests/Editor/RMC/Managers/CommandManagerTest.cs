@@ -15,7 +15,7 @@ namespace RMC.Managers
 			bool wasListenerCalled = false;
 
 			// Act
-			commandManager.AddCommandListener<TestCommand>( t =>
+			commandManager.AddCommandListener<TestCommand>( command =>
 			{
 				wasListenerCalled = true;
 			});
@@ -35,7 +35,7 @@ namespace RMC.Managers
 			bool wasListenerCalled = false;
 
 			// Act
-			commandManager.AddCommandListener<OtherTestCommand>(t =>
+			commandManager.AddCommandListener<OtherTestCommand>(command =>
 			{
 				wasListenerCalled = true;
 			});
