@@ -3,13 +3,14 @@ using RMC.Architectures.UMVCS.Model;
 using RMC.Architectures.UMVCS.Controller;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
+using RMC.Architectures.UMVCS.Service;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 {
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class UIController : BaseController<NullModel, UIView>
+	public class UIController : BaseController<NullModel, UIView, NullService>
 	{
 		private UIView _uiView { get { return BaseView as UIView; } }
 

@@ -6,43 +6,29 @@ namespace RMC.Architectures.UMVCS.Model
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class BaseModel : MonoBehaviour
+	public class BaseModel : BaseActor
 	{
 		protected ConfigData ConfigData { get { return _configData; } }
-		protected bool IsInitialized { get { return _isInitialized; } }
 
 		[SerializeField]
 		private ConfigData _configData = null;
 
-		private bool _isInitialized = false;
-
-		public virtual void Initialize()
+		public override void Initialize()
 		{
-			if (!_isInitialized)
+			if (!IsInitialized)
 			{
-				_isInitialized = true;
 				BaseApp.Instance.Context.ModelLocator.AddModel(this);
 			}
+			base.Initialize();
 		}
 
-		private void UnInitialize()
+		protected override void UnInitialize()
 		{
-			if (_isInitialized)
+			if (IsInitialized)
 			{
-				_isInitialized = false;
-				BaseApp.Instance.Context.ModelLocator.AddModel(this);
+				BaseApp.Instance.Context.ModelLocator.RemoveModel(this);
 			}
-		}
-
-		protected void Awake ()
-		{
-			Initialize();
-		}
-
-		protected void OnDestroy()
-		{
-			_isInitialized = false;
-			BaseApp.Instance.Context.ModelLocator.RemoveModel(this);
+			base.UnInitialize();
 		}
 	}
 }

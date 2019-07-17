@@ -1,13 +1,12 @@
 ﻿using RMC.Architectures.UMVCS.Model;
 using RMC.Attributes;
 using RMC.Events;
+using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Events;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
 using UnityEngine;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 {
-	public class BounceCountChangedEvent : PropertyChangedEvent<int> { }
-
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>

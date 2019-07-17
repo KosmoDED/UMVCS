@@ -1,17 +1,21 @@
-﻿using RMC.Architectures.UMVCS.Controller;
+﻿using System;
+using RMC.Architectures.UMVCS.Controller;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
+using RMC.Projects.MyBouncyBallExample.UMVCS.Service;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
+using UnityEngine;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 {
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class MainController : BaseController<MainModel, MainView>
+	public class MainController : BaseController<MainModel, MainView, MainService>
 	{
 		private MainModel _mainModel { get { return BaseModel as MainModel; } }
 		private MainView _mainView { get { return BaseView as MainView; } }
+		private MainService _mainService { get { return BaseService as MainService; } }
 
 		protected void Start()
 		{
@@ -22,6 +26,14 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			_mainModel.OnBounceCountChanged.AddListener(MainModel_OnBounceCountChanged);
 
 			_mainModel.BounceCount = 0;
+
+			_mainService.OnLoadCompleted.AddListener(MainService_OnLoadCompleted);
+			_mainService.Load();
+		}
+
+		private void MainService_OnLoadCompleted(string text)
+		{
+			Debug.Log("MainService_OnLoadCompleted: " + text);
 		}
 
 		private void MainModel_OnBounceCountChanged(int previousValue, int currentValue)
