@@ -71,7 +71,8 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			// of a Controller mitigating changes to a Model
 			if (currentValue > _mainModel.MainConfigData.BounceCountMax)
 			{
-				currentValue = 0;
+				_mainModel.BounceCount = 0;
+				return;
 			}
 
 			Context.CommandManager.InvokeCommand(
