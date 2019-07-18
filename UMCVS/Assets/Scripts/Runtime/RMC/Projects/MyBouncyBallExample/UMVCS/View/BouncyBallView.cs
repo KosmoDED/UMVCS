@@ -11,6 +11,11 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
 	{
 		public BouncedEvent OnBounce = new BouncedEvent();
 
+		public Rigidbody Rigidbody { get { return _rigidbody; } }
+
+		[SerializeField]
+		private Rigidbody _rigidbody = null;
+
 		protected void OnCollisionEnter (Collision collision)
 		{
 			OnBounce.Invoke();

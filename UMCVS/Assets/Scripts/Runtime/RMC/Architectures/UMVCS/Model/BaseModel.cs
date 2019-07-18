@@ -8,10 +8,10 @@ namespace RMC.Architectures.UMVCS.Model
 	/// </summary>
 	public class BaseModel : BaseActor
 	{
-		protected ConfigData ConfigData { get { return _configData; } }
+		protected BaseConfigData ConfigData { get { return _configData; } }
 
 		[SerializeField]
-		private ConfigData _configData = null;
+		private BaseConfigData _configData = null;
 
 		public override void Initialize()
 		{

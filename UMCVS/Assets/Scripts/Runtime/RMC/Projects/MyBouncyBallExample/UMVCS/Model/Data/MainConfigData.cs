@@ -4,13 +4,13 @@ using UnityEngine;
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 {
 	[CreateAssetMenu(fileName = "MainConfigData", 
-		menuName = Constants.CreateAssetMenuPath + "MainConfigData", 
-		order = Constants.CreateAssetMenuOrder)]
+		menuName = MyBouncyBallExampleConstants.CreateAssetMenuPath + "MainConfigData", 
+		order = MyBouncyBallExampleConstants.CreateAssetMenuOrder)]
 
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class MainConfigData : ConfigData
+	public class MainConfigData : BaseConfigData
 	{
 		public int BounceCountMax { get { return _bounceCountMax; }  }
 

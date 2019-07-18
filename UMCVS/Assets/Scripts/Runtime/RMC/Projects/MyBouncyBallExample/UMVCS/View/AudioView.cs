@@ -1,4 +1,5 @@
 ﻿using RMC.Architectures.UMVCS.View;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
@@ -9,15 +10,34 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.View
 	public class AudioView : BaseView
 	{
 		[SerializeField]
-		private AudioSource _audioSource = null;
+		private List<AudioClip> _audioClips = new List<AudioClip>();
 
 		[SerializeField]
-		private AudioClip _audioClip = null;
+		private List<AudioSource> _audioSources = new List<AudioSource>();
 
-		public void PlayAudioClip ()
+		/// <summary>
+		/// Play the AudioClip by index.
+		/// </summary>
+		public void PlayAudioClip(int index)
 		{
-			_audioSource.clip = _audioClip;
-			_audioSource.Play();
+			PlayAudioClip(_audioClips[index]);
+		}
+
+		/// <summary>
+		/// Play the AudioClip by reference.
+		/// If all sources are occupied, nothing will play.
+		/// </summary>
+		private void PlayAudioClip(AudioClip audioClip)
+		{
+			foreach (AudioSource audioSource in _audioSources)
+			{
+				if (!audioSource.isPlaying)
+				{
+					audioSource.clip = audioClip;
+					audioSource.Play();
+					return;
+				}
+			}
 		}
 	}
 }

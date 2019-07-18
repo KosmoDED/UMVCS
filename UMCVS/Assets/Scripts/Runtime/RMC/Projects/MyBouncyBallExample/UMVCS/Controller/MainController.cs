@@ -89,6 +89,8 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 		private void CommandManager_OnBounced(BouncedCommand e)
 		{
 			_mainModel.BounceCount.Value = _mainModel.BounceCount.Value + 1;
+
+			Context.CommandManager.InvokeCommand(new PlayAudioClipCommand(MyBouncyBallExampleConstants.AudioIndexBounce));
 		}
 	}
 }

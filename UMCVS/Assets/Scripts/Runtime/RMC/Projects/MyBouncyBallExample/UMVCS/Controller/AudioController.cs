@@ -15,13 +15,13 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 
 		protected void Start()
 		{
-			Context.CommandManager.AddCommandListener<BouncedCommand>(
-				CommandManager_OnBounced);
+			Context.CommandManager.AddCommandListener<PlayAudioClipCommand>(
+				CommandManager_OnPlayAudioClip);
 
 		}
-		private void CommandManager_OnBounced(BouncedCommand e)
+		private void CommandManager_OnPlayAudioClip(PlayAudioClipCommand e)
 		{
-			_audioView.PlayAudioClip();
+			_audioView.PlayAudioClip(e.AudioClipIndex);
 		}
 	}
 }
