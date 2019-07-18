@@ -1,11 +1,9 @@
-﻿using System;
-using RMC.Architectures.UMVCS.Controller;
+﻿using RMC.Architectures.UMVCS.Controller;
 using RMC.Data.Types;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Controller.Commands;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Model;
 using RMC.Projects.MyBouncyBallExample.UMVCS.Service;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
-using UnityEngine;
 
 namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 {

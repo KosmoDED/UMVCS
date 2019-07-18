@@ -14,18 +14,35 @@ namespace RMC.PropertyDrawers
 	public class ObservablePropertyDrawer : PropertyDrawer
 	{
 		private const float GapVertical = 5;
-		private bool _isShowingUnityEvent = true;
+		private bool _willShowAllChildren = false;
+		private bool _isEditable = true;
 
 		public override void OnGUI(Rect position,
 								   SerializedProperty property,
 								   GUIContent label)
 		{
+			property.serializedObject.Update();
+
 			object[] attributes = fieldInfo.GetCustomAttributes(true);
 
-			ObservableShowAllChildrenAttribute showAllAttribute = 
-				attributes[0] as ObservableShowAllChildrenAttribute;
+			ObservableAttribute observableAttribute = null;
 
-			_isShowingUnityEvent = showAllAttribute != null;
+			for (int i = 0; i < attributes.Length; i++)
+			{
+				if (attributes[i].GetType() == typeof(ObservableAttribute))
+				{
+					observableAttribute = attributes[i] as ObservableAttribute;
+					break;
+				}
+			}
+
+			if (observableAttribute != null)
+			{
+				_willShowAllChildren = observableAttribute.WillShowAllChildren;
+				_isEditable = observableAttribute.IsEditable;
+			}
+
+			GUI.enabled = _isEditable;
 
 			SerializedProperty valueSP = property.FindPropertyRelative("_value");
 
@@ -49,7 +66,7 @@ namespace RMC.PropertyDrawers
 				}
 			}
 
-			if (_isShowingUnityEvent)
+			if (_willShowAllChildren)
 			{
 				SerializedProperty onChangedSP = property.FindPropertyRelative("OnChanged");
 				if (onChangedSP != null)
@@ -61,11 +78,14 @@ namespace RMC.PropertyDrawers
 					
 				}
 			}
+
+			GUI.enabled = false;
+			property.serializedObject.ApplyModifiedProperties();
 		}
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-			if (_isShowingUnityEvent)
+			if (_willShowAllChildren)
 			{
 				return EditorGUIUtility.singleLineHeight * 6 + GapVertical * 2;
 			}

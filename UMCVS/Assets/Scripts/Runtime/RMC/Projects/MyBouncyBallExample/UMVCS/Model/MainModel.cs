@@ -19,6 +19,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 		/// event notification upon change and is useful.
 		/// </summary>
 		// Want to the the OnChanged in the inspector? Use this [ObservableShowAllChildren]
+		[Observable (IsEditable = false)]
 		[SerializeField]
 		public ObservableInt BounceCount = new ObservableInt();
 
@@ -27,6 +28,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 		/// event notification upon change and is useful.
 		/// </summary>
 		// Want to the the OnChanged in the inspector? Use this [ObservableShowAllChildren]
+		[Observable (IsEditable = false)]
 		[SerializeField]
 		public ObservableString CaptionText = new ObservableString();
 
