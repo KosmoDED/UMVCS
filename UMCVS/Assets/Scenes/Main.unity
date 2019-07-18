@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bouncyBallParent: {fileID: 250921553}
-  _bouncyBallViewPrefab: {fileID: 2134247807213180448, guid: e27cbe5fb97e113489b75cb7d5f028b9,
+  _bouncyBallViewPrefab: {fileID: 7170103844638754865, guid: e27cbe5fb97e113489b75cb7d5f028b9,
     type: 3}
 --- !u!4 &1675107160
 Transform:
