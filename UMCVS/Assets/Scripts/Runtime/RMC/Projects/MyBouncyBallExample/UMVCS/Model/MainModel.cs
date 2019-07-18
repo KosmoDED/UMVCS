@@ -1,4 +1,5 @@
-﻿using RMC.Architectures.UMVCS.Model;
+﻿using System;
+using RMC.Architectures.UMVCS.Model;
 using RMC.Attributes;
 using RMC.Data.Types;
 using RMC.Projects.MyBouncyBallExample.UMVCS.View;
@@ -34,5 +35,22 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Model
 		[ReadOnly]
 		[SerializeField]
 		private BouncyBallView _bouncyBallView = null;
+
+		public override void Initialize()
+		{
+			if (!IsInitialized)
+			{
+				BounceCount.OnValidate.AddListener(BounceCount_OnValidate);
+			}
+			base.Initialize();
+		}
+
+		private void BounceCount_OnValidate(Observable obs)
+		{
+			ObservableInt observable = obs as ObservableInt;
+
+			// Optional, if you want to correct the values 
+			//observable.Value = Mathf.Clamp(observable.Value, 0, 10);
+		}
 	}
 }

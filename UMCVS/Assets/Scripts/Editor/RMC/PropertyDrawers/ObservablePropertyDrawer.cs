@@ -1,5 +1,7 @@
 ﻿using RMC.Attributes;
 using RMC.Data.Types;
+using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,17 +28,39 @@ namespace RMC.PropertyDrawers
 			_isShowingUnityEvent = showAllAttribute != null;
 
 			SerializedProperty valueSP = property.FindPropertyRelative("_value");
-			EditorGUI.PropertyField(position, valueSP, label, true);
-			
+
+			if (valueSP != null)
+			{
+				EditorGUI.BeginChangeCheck();
+				EditorGUI.PropertyField(position, valueSP, label, true);
+				if (EditorGUI.EndChangeCheck())
+				{
+					// Use reflection to prompt the class
+					// to invoke its OnChange. This method is protected
+					// because it otherwise should not be called externally.
+					Observable observable = fieldInfo.GetValue(property.serializedObject.targetObject) as Observable;
+					Type thisType = observable.GetType();
+
+					MethodInfo OnValidate = thisType.GetMethod("InvokeOnValidate", BindingFlags.NonPublic | BindingFlags.Instance);
+					OnValidate.Invoke(observable, null);
+
+					MethodInfo invokeOnChanged = thisType.GetMethod("InvokeOnChanged", BindingFlags.NonPublic | BindingFlags.Instance);
+					invokeOnChanged.Invoke(observable, null);
+				}
+			}
+
 			if (_isShowingUnityEvent)
 			{
 				SerializedProperty onChangedSP = property.FindPropertyRelative("OnChanged");
-				position.y += EditorGUIUtility.singleLineHeight + GapVertical;
-				position.x += EditorGUIUtility.labelWidth;
-				position.width -= EditorGUIUtility.labelWidth;
-				EditorGUI.PropertyField(position, onChangedSP, new GUIContent("OnChanged"), true);
+				if (onChangedSP != null)
+				{
+					position.y += EditorGUIUtility.singleLineHeight + GapVertical;
+					position.x += EditorGUIUtility.labelWidth;
+					position.width -= EditorGUIUtility.labelWidth;
+					EditorGUI.PropertyField(position, onChangedSP, new GUIContent("OnChanged"), true);
+					
+				}
 			}
-			
 		}
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

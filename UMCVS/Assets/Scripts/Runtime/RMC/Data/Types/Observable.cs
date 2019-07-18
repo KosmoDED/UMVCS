@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RMC.Data.Types
 {
@@ -29,10 +32,17 @@ namespace RMC.Data.Types
 	}
 
 	[Serializable]
-	public class OnObservableChangedEvent : UnityEvent<Observable> {}
+	public class ObservableChangedEvent : UnityEvent<Observable> {}
 
 	[Serializable]
-	public class Observable {}
+	public class ObservableOnValidateEvent : UnityEvent<Observable> { }
+
+	[Serializable]
+	public abstract class Observable 
+	{
+		protected abstract void InvokeOnValidate();
+		protected abstract void InvokeOnChanged();
+	}
 
 	/// <summary>
 	/// Wraps a value in order to allow observing its value change
@@ -47,6 +57,7 @@ namespace RMC.Data.Types
 	[Serializable]
 	public class Observable<T> : Observable, IEquatable<Observable<T>>
 	{
+		//Called by PropertyDrawer
 		[SerializeField]
 		private T _value;
 
@@ -60,7 +71,8 @@ namespace RMC.Data.Types
 			_value = value;
 		}
 
-		public OnObservableChangedEvent OnChanged = new OnObservableChangedEvent();
+		public ObservableChangedEvent OnChanged = new ObservableChangedEvent();
+		public ObservableOnValidateEvent OnValidate = new ObservableOnValidateEvent();
 
 		public T Value
 		{
@@ -68,15 +80,26 @@ namespace RMC.Data.Types
 			set
 			{
 				var oldValue = _value;
-				_value = value;
-				if (!oldValue.Equals(_value))
+				if (!oldValue.Equals(value))
 				{
-					OnChanged.Invoke(this);
+					_value = value;
+					PreviousValue = oldValue;
+					InvokeOnChanged();
 				}
 			}
 		}
 
-		public T PreviousValue { get { return _previousValue; } }
+		public T PreviousValue
+		{
+			get
+			{
+				return _previousValue;
+			}
+			private set
+			{
+				_previousValue = value;
+			}
+		}
 
 		public static implicit operator Observable<T>(T observable)
 		{
@@ -108,6 +131,22 @@ namespace RMC.Data.Types
 		public override int GetHashCode()
 		{
 			return _value.GetHashCode();
+		}
+
+		/// <summary>
+		/// NOTE: This is also called from the <see cref="ObservablePropertyDrawer"/>.
+		/// </summary>
+		protected override void InvokeOnValidate()
+		{
+			OnValidate.Invoke(this);
+		}
+
+		/// <summary>
+		/// NOTE: This is also called from the <see cref="ObservablePropertyDrawer"/>.
+		/// </summary>
+		protected override void InvokeOnChanged()
+		{
+			OnChanged.Invoke(this);
 		}
 	}
 }

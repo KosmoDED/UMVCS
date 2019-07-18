@@ -83,7 +83,7 @@ namespace RMC.Projects.MyBouncyBallExample.UMVCS.Controller
 			}
 
 			Context.CommandManager.InvokeCommand(
-				new BounceCountChangedCommand(-1, observable.Value));
+				new BounceCountChangedCommand(observable.PreviousValue, observable.Value));
 		}
 
 		private void CommandManager_OnBounced(BouncedCommand e)
