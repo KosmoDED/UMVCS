@@ -114,17 +114,23 @@ Model Serialization
 
 I chose for BaseModel to extend MonoBehaviour. There are pros and cons for this.
 
-### C# BaseModel (MonoBehaviour)
+### C# BaseModel (MonoBehaviour) 
+
+A project can have as many models as needed. Typically one for each major domain (Player, Enemy, World, Physics, Audio, etc...)
+
+Your BaseModel sublass is meant for reading at **Runtime**.
 
 <img src="https://raw.githubusercontent.com/srivello/UMVCS/master/UMCVS/Assets/Documentation/Images/Inspector_MainModel.png" width="500" />
 
-One of the pros includes the serialization in the inspector for the data. This is very helpful for debugging and seeing the current state of the app while its running. (See screenshot above)
+One of the pros of MonoBehaviour is the serialization in the inspector for the data. This is very helpful for debugging and seeing the current state of the app while its running. (See screenshot above)
 
-### C# BaseConfigData (ScriptableObject)
+### C# BaseConfigData (ScriptableObject) 
 
 <img src="https://raw.githubusercontent.com/srivello/UMVCS/master/UMCVS/Assets/Documentation/Images/Inspector_MainConfigData.png" width="500" />
 
 There are many benefits for using ScriptableObjects for data storage. It is written to disk and easily editable at both editor time and run time. (See screenshot above)
+
+Your BaseConfigData subclass is meant for writing at  **Edit Time** and reading at runtime.
 
 Unit Tests
 =============
