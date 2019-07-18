@@ -30,8 +30,9 @@ Enjoy!
 MVCS
 =============
 
+The high-level architecture is taken from the industry-standard MVCS. 
 
-<img src="https://raw.githubusercontent.com/srivello/UMVCS/master/UMCVS/Assets/Documentation/Images/UML_HighLevel.png" width="500" />
+<img src="https://raw.githubusercontent.com/srivello/UMVCS/master/UMCVS/Assets/Documentation/Images/MVCS_Diagram.png" width="500" />
 
 Project Organization
 =============
