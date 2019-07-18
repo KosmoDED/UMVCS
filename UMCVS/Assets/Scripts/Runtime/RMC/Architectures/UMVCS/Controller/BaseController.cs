@@ -28,12 +28,18 @@ namespace RMC.Architectures.UMVCS.Controller
 
 		public S BaseService { get { return _service; } set { _service = value; } }
 
+		//Note: If a childclass chooses to set M = NullModel, it will not appear in Inspector
+		//Per the BaseControllerEditor
 		[SerializeField]
 		private M _model = null; //Keep this short naming for inspector
 
+		//Note: If a childclass chooses to set V = NullView, it will not appear in Inspector
+		//Per the BaseControllerEditor
 		[SerializeField]
 		private V _view = null; //Keep this short naming for inspector
 
+		//Note: If a childclass chooses to set S = NullModel, it will not appear in Inspector
+		//Per the BaseControllerEditor
 		[SerializeField]
 		private S _service = null; //Keep this short naming for inspector
 
