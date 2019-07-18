@@ -27,6 +27,11 @@ Enjoy!
 * Project Organization - A prescriptive solution for structuring your work
 * Code Template - A prescriptive solution for best practices
 
+MVCS
+=============
+
+
+<img src="https://raw.githubusercontent.com/srivello/UMVCS/master/UMCVS/Assets/Documentation/Images/UML_HighLevel.png" width="500" />
 
 Project Organization
 =============
