@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace RMC.Architectures.UMVCS.Controller
 {
+	public interface IUMVCSContainer { }
+
 	/// <summary>
 	/// TODO: Add comment
 	/// </summary>
-	public class BaseController : MonoBehaviour
+	public class BaseController : MonoBehaviour, IUMVCSContainer
 	{
 	}
 
