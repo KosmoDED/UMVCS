@@ -1139,7 +1139,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0}
+  m_BackGroundColor: {r: 0.41037738, g: 0.6721669, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1271,14 +1271,24 @@ MonoBehaviour:
     OnChanged:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: RMC.Data.Types.OnObservableChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: RMC.Data.Types.ObservableChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    OnValidate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: RMC.Data.Types.ObservableOnValidateEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   CaptionText:
     _value: 
     OnChanged:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: RMC.Data.Types.OnObservableChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: RMC.Data.Types.ObservableChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    OnValidate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: RMC.Data.Types.ObservableOnValidateEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   _bouncyBallView: {fileID: 0}
 --- !u!4 &1629220482
