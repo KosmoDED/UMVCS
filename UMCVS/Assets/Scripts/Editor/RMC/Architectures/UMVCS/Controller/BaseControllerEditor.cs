@@ -1,12 +1,10 @@
 ﻿using RMC.Architectures.UMVCS.Model;
 using RMC.Architectures.UMVCS.Service;
 using RMC.Architectures.UMVCS.View;
-using RMC.Projects.MyBouncyBallExample.UMVCS.View;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEditor;
-using UnityEngine;
 
 namespace RMC.Architectures.UMVCS.Controller
 {
